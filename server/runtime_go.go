@@ -1759,7 +1759,7 @@ func NewRuntimeProviderGo(logger, startupLogger *zap.Logger, db *sql.DB, config 
 			return nil, err
 		}
 
-		return NewRuntimeGoMatchCore(logger, matchRegistry, tracker, router, id, node, labelUpdateFn, stdLogger, db, env, nk, match)
+		return NewRuntimeGoMatchCore(logger, matchRegistry, router, id, node, labelUpdateFn, stdLogger, db, env, nk, match)
 	}
 	nk.SetMatchCreateFn(matchCreateFn)
 	matchNamesListFn := func() []string {
