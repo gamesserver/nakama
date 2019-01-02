@@ -365,25 +365,12 @@ func (s *sessionWS) Close() {
 	// Cancel any ongoing operations tied to this session.
 	s.ctxCancelFn()
 
-	if s.logger.Core().Enabled(zap.DebugLevel) {
-		s.logger.Info("Cleaning up closed client connection", zap.String("remoteAddress", s.conn.RemoteAddr().String()))
-	}
-
 	// When connection close originates internally in the session, ensure cleanup of external resources and references.
 	if err := s.matchmaker.RemoveAll(s.id); err != nil {
 		s.logger.Warn("Failed to remove all matchmaking tickets", zap.Error(err))
 	}
-	if s.logger.Core().Enabled(zap.DebugLevel) {
-		s.logger.Info("Cleaned up closed connection matchmaker", zap.String("remoteAddress", s.conn.RemoteAddr().String()))
-	}
 	s.tracker.UntrackAll(s.id)
-	if s.logger.Core().Enabled(zap.DebugLevel) {
-		s.logger.Info("Cleaned up closed connection tracker", zap.String("remoteAddress", s.conn.RemoteAddr().String()))
-	}
 	s.sessionRegistry.remove(s.id)
-	if s.logger.Core().Enabled(zap.DebugLevel) {
-		s.logger.Info("Cleaned up closed connection session registry", zap.String("remoteAddress", s.conn.RemoteAddr().String()))
-	}
 
 	// Clean up internals.
 	s.pingTimer.Stop()
