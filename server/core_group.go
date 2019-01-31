@@ -849,7 +849,7 @@ WHERE u.id = ge.source_id AND ge.destination_id = $1 AND u.disable_time = '1970-
 		groupUser := &api.GroupUserList_GroupUser{
 			User: user,
 			State: &wrappers.Int32Value{
-				Value: int32(state.Int64),
+				Value: int32(state.Int64) + 1,
 			},
 		}
 
@@ -927,7 +927,7 @@ WHERE group_edge.destination_id = $1 AND disable_time = '1970-01-01 00:00:00'`
 		userGroup := &api.UserGroupList_UserGroup{
 			Group: group,
 			State: &wrappers.Int32Value{
-				Value: int32(userState.Int64),
+				Value: int32(userState.Int64) + 1,
 			},
 		}
 

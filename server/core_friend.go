@@ -133,7 +133,7 @@ FROM users, user_edge WHERE id = destination_id AND source_id = $1`
 		friends = append(friends, &api.Friend{
 			User: user,
 			State: &wrappers.Int32Value{
-				Value: int32(state.Int64),
+				Value: int32(state.Int64) + 1,
 			},
 		})
 	}
